@@ -1,12 +1,33 @@
-ROKU_DEV_TARGET = 192.168.129.242
+#########################################################################
+# Simple makefile for Roku app use
+#
+# Makefile Usage:
+# > make
+# > make install
+# > make remove
+#
+# Makefile Less Common Usage:
+# > make art-opt
+# > make pkg
+# > make install_native
+# > make remove_native
+# > make tr
+#
+#
+# Important Notes:
+# To use the "install" and "remove" targets to install your
+# application directly from the shell, you must do the following:
+#
+# 1) Make sure that you have the curl command line executable in your path
+# 2) Set the variable ROKU_DEV_TARGET in your environment to the IP
+#    address of your Roku box. (e.g. export ROKU_DEV_TARGET=192.168.1.1.
+#    Set in your this variable in your shell startup (e.g. .bashrc)
+# 3) If you want, you can also set DEVPASSWORD in your environment so that
+#    you don't need to type in your password for each install.
+##########################################################################
+APPNAME = EXAMPLE
+VERSION = 1.0
 
-all: roku-framework
+ZIP_EXCLUDE = -x .\* -x \*\ -x \*~ -x Makefile -x \*.zip -x .git/* -x .git
 
-roku-framework: source/framework/main/main.brs
-	zip -9 -r out/roku-framework.zip . -x \*~ -x Makefile -x \*.zip -x .git/* -x .git
-
-clean: rm roku-framework.zip
-
-install: roku-framework
-	@echo Installing out/roku-framework.zip to $(ROKU_DEV_TARGET)
-	@curl -s -S -F "mysubmit=Install" -F "archive=@out/roku-framework.zip" -F "passwd=" http://$(ROKU_DEV_TARGET)/plugin_install | grep "<font color" | sed "s/<font color=\"red\">//" | sed "s[</font>[["
+include ./app.mk

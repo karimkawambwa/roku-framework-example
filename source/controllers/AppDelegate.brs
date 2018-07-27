@@ -28,8 +28,8 @@ function AppDelegate()
         ' Custom Configuration
         ' You can set these as you want
         ' Pont to the correct locations
-        app.frameworkFolder = "pkg://source/framework/"
-        app.viewFolder = "pkg://source/example/view xml/"
+        app.frameworkFolder = "pkg://source/roku-framework/"
+        app.viewFolder = "pkg://source/xml/"
         
         app.customUI = {}
         app.customUI["example:view"] = ExampleView
